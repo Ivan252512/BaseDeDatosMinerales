@@ -4,7 +4,7 @@ Introducción a Ciencias de la Computación
 Práctica 5: Excepciones, entrada/salida y enumeraciones
 -------------------------------------------------------
 
-### Fecha de entrega: martes 27 de marzo, 2017
+### Fecha de entrega: martes 27 de marzo, 2018
 
 Deben agregarle excepciones a sus clases
 [`Lista`](https://aztlan.fciencias.unam.mx/gitlab/2018-2-icc/practica5/blob/master/src/mx/unam/ciencias/icc/Lista.java)
