@@ -34,6 +34,10 @@ public class Estudiante implements Registro {
                       double promedio,
                       int    edad) {
         // Aquí va su código.
+        this.nombre=nombre;
+        this.cuenta=cuenta;
+        this.promedio=promedio;
+        this.edad=edad;
     }
 
     /**
@@ -42,6 +46,7 @@ public class Estudiante implements Registro {
      */
     public String getNombre() {
         // Aquí va su código.
+        return this.nombre;
     }
 
     /**
@@ -50,6 +55,7 @@ public class Estudiante implements Registro {
      */
     public void setNombre(String nombre) {
         // Aquí va su código.
+        this.nombre=nombre;
     }
 
     /**
@@ -58,6 +64,7 @@ public class Estudiante implements Registro {
      */
     public int getCuenta() {
         // Aquí va su código.
+        return this.cuenta;
     }
 
     /**
@@ -66,6 +73,7 @@ public class Estudiante implements Registro {
      */
     public void setCuenta(int cuenta) {
         // Aquí va su código.
+        this.cuenta=cuenta;
     }
 
     /**
@@ -74,6 +82,7 @@ public class Estudiante implements Registro {
      */
     public double getPromedio() {
         // Aquí va su código.
+        return this.promedio;
     }
 
     /**
@@ -82,6 +91,7 @@ public class Estudiante implements Registro {
      */
     public void setPromedio(double promedio) {
         // Aquí va su código.
+        this.promedio=promedio;
     }
 
     /**
@@ -90,6 +100,7 @@ public class Estudiante implements Registro {
      */
     public int getEdad() {
         // Aquí va su código.
+        return this.edad;
     }
 
     /**
@@ -98,6 +109,7 @@ public class Estudiante implements Registro {
      */
     public void setEdad(int edad) {
         // Aquí va su código.
+        this.edad=edad;
     }
 
     /**
@@ -113,6 +125,7 @@ public class Estudiante implements Registro {
             return false;
         Estudiante e = (Estudiante)o;
         // Aquí va su código.
+        return nombre==e.nombre && cuenta==e.cuenta && promedio==e.promedio && edad==e.edad;
     }
 
     /**
@@ -121,6 +134,12 @@ public class Estudiante implements Registro {
      */
     @Override public String toString() {
         // Aquí va su código.
+        String cadena = String.format("Nombre   : %s\n" +
+                                      "Cuenta   : %d\n" +
+                                      "Promedio : %2.2f\n" +
+                                      "Edad     : %d",
+                                      nombre, cuenta, promedio, edad);
+        return cadena;
     }
 
     /**
@@ -130,6 +149,11 @@ public class Estudiante implements Registro {
      */
     @Override public void guarda(BufferedWriter out) throws IOException {
         // Aquí va su código.
+        out.write(String.format("%s\t%d\t%2.2f\t%d\n",
+                                nombre,
+                                cuenta,
+                                promedio,
+                                edad));
     }
 
     /**
@@ -142,5 +166,14 @@ public class Estudiante implements Registro {
      */
     @Override public boolean carga(BufferedReader in) throws IOException {
         // Aquí va su código.
+        String linea=in.readLine();
+        if(linea==null)
+            return false;
+        linea=linea.trim();
+        if(linea.equals(""))
+            return false;
+        String[] p=linea.split("\t");
+        if(p.legth()!=4)
+            throw new IOException("El archivo es inválido");
     }
 }

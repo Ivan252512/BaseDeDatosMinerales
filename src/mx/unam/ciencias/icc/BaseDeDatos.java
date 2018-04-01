@@ -22,6 +22,7 @@ public abstract class BaseDeDatos {
      */
     public BaseDeDatos() {
         // Aquí va su código.
+        this.registros=null;
     }
 
     /**
@@ -30,6 +31,7 @@ public abstract class BaseDeDatos {
      */
     public int getNumRegistros() {
         // Aquí va su código.
+        return registros.getLongitud();
     }
 
     /**
@@ -39,6 +41,7 @@ public abstract class BaseDeDatos {
      */
     public Lista getRegistros() {
         // Aquí va su código.
+        return this.registros;
     }
 
     /**
@@ -47,6 +50,7 @@ public abstract class BaseDeDatos {
      */
     public void agregaRegistro(Registro registro) {
         // Aquí va su código.
+        registros.agregaFinal(registro);
     }
 
     /**
@@ -55,6 +59,7 @@ public abstract class BaseDeDatos {
      */
     public void eliminaRegistro(Registro registro) {
         // Aquí va su código.
+        registros.elimina(registro);
     }
 
     /**
@@ -64,6 +69,12 @@ public abstract class BaseDeDatos {
      */
     public void guarda(BufferedWriter out) throws IOException {
         // Aquí va su código.
+        Lista.Nodo n=registros.get(cabeza);
+        while(n!=null){
+            Registro r=(Registro)n.get();
+            r.guarda(out);
+            n=n.getSiguiente();
+        }
     }
 
     /**
@@ -75,6 +86,12 @@ public abstract class BaseDeDatos {
      */
     public void carga(BufferedReader in) throws IOException {
         // Aquí va su código.
+        registros.limpia();
+        Registro r= creaRegistro();
+        while(r.carga(in)){
+          registros.agregaFinal(r);
+          r=creaRegistro();
+        }
     }
 
     /**
