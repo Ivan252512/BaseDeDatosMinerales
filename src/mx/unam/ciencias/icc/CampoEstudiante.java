@@ -21,7 +21,12 @@ public enum CampoEstudiante {
      */
     @Override public String toString() {
         // Aquí va su código.
-        
-
+        if (this.equals(CampoEstudiante.NOMBRE))
+            return "Nombre";
+        if (this.equals(CampoEstudiante.CUENTA))
+            return "# Cuenta";
+        if (this.equals(CampoEstudiante.PROMEDIO))
+            return "Promedio";
+        return "Edad";
     }
 }
