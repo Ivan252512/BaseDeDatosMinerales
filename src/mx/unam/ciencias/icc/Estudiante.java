@@ -172,8 +172,6 @@ public class Estudiante implements Registro {
         linea=linea.trim();
         if(linea.equals(""))
             return false;
-        String[] p=linea.split("\t");
-        if(p.legth()!=4)
-            throw new IOException("El archivo es inválido");
+        return true;
     }
 }

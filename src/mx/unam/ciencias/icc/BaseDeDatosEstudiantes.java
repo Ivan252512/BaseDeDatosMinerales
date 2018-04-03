@@ -11,7 +11,7 @@ public class BaseDeDatosEstudiantes extends BaseDeDatos {
      */
     @Override public Registro creaRegistro() {
         // Aquí va su código.
-        return (Registro)new Estudiante();
+        return (Registro)new Estudiante("",0,0,0);
     }
 
     /**
@@ -30,5 +30,28 @@ public class BaseDeDatosEstudiantes extends BaseDeDatos {
                                                "CampoEstudiante");
         CampoEstudiante c = (CampoEstudiante)campo;
         // Aquí va su código.
+        Lista r=new Lista();
+        if(texto!=null || texto.equals(""))
+            return r;
+        Lista.Nodo n= registros.getCabeza();
+        while(n!=null){
+            Estudiante e=(Estudiante)n.get();
+            String s= cadenaCampo(e,c);
+            if(texto.indexOf(s)>-1){
+              r.agregaFinal(e);
+              n.getSiguiente();
+            }
+        }
+        return r;
+    }
+
+    private String cadenaCampo(Estudiante e, CampoEstudiante c){
+      switch(c){
+        case NOMBRE:return e.getNombre();
+        case CUENTA:return String.valueOf(e.getCuenta());
+        case PROMEDIO:return String.format("%2.2f", e.getPromedio());
+        case EDAD:return String.valueOf(e.getEdad());
+        default:return "";
+      }
     }
 }

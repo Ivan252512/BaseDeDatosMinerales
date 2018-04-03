@@ -1,4 +1,4 @@
-age mx.unam.ciencias.icc;
+package mx.unam.ciencias.icc;
 
 /**
  * <p>Clase para listas doblemente ligadas.</p>

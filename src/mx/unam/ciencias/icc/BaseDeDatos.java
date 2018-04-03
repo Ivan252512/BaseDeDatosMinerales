@@ -69,7 +69,7 @@ public abstract class BaseDeDatos {
      */
     public void guarda(BufferedWriter out) throws IOException {
         // Aquí va su código.
-        Lista.Nodo n=registros.get(cabeza);
+        Lista.Nodo n=registros.getCabeza();
         while(n!=null){
             Registro r=(Registro)n.get();
             r.guarda(out);
