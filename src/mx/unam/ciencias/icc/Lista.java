@@ -1,4 +1,5 @@
 package mx.unam.ciencias.icc;
+import java.util.NoSuchElementException;
 
 /**
  * <p>Clase para listas doblemente ligadas.</p>
@@ -94,6 +95,8 @@ public class Lista {
      * @param elemento el elemento a agregar.
      */
     public void agregaFinal(Object elemento) {
+        if(elemento==null)
+            throw new IllegalArgumentException();
         Nodo n=new Nodo(elemento);
         if (!esVacia()){
           rabo.siguiente=n;
@@ -114,6 +117,8 @@ public class Lista {
      */
     public void agregaInicio(Object elemento) {
         // Aquí va su código.
+        if(elemento==null)
+            throw new IllegalArgumentException();
         Nodo n=new Nodo(elemento);
         if (!esVacia()){
           cabeza.anterior=n;
@@ -142,6 +147,8 @@ public class Lista {
      */
     public void inserta(int i, Object elemento) {
         // Aquí va su código.
+        if(elemento==null)
+            throw new IllegalArgumentException();
         Nodo n= new Nodo(elemento);
         if (i<=0){
             agregaInicio(elemento);
@@ -206,6 +213,8 @@ public class Lista {
      */
     public Object eliminaPrimero() {
         // Aquí va su código.
+        if(getLongitud()==0)
+            throw new NoSuchElementException();
         if(!esVacia()){
           Nodo n=cabeza;
           if(cabeza.siguiente==null){
@@ -229,6 +238,8 @@ public class Lista {
      */
     public Object eliminaUltimo() {
         // Aquí va su código.
+        if(getLongitud()==0)
+            throw new NoSuchElementException();
         if(!esVacia()){
           Nodo n=rabo;
           if(rabo.anterior==null){
@@ -313,6 +324,8 @@ public class Lista {
      */
     public Object getPrimero() {
         // Aquí va su código.
+        if(getLongitud()==0)
+            throw new NoSuchElementException();
         if(!esVacia()){
           return cabeza.get();
         }
@@ -326,6 +339,8 @@ public class Lista {
      */
     public Object getUltimo() {
         // Aquí va su código.
+        if(getLongitud()==0)
+            throw new NoSuchElementException();
         if(!esVacia()){
           return rabo.get();
         }
@@ -352,7 +367,7 @@ public class Lista {
           }
           return n.get();
         }
-        return null;
+        throw new ExcepcionIndiceInvalido();
     }
 
     /**

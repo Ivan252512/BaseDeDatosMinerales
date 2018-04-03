@@ -125,7 +125,8 @@ public class Estudiante implements Registro {
             return false;
         Estudiante e = (Estudiante)o;
         // Aquí va su código.
-        return nombre==e.nombre && cuenta==e.cuenta && promedio==e.promedio && edad==e.edad;
+        return (this.nombre==e.nombre && this.cuenta==e.cuenta &&
+        this.promedio==e.promedio && this.edad==e.edad);
     }
 
     /**

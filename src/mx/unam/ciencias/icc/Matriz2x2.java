@@ -134,7 +134,7 @@ public class Matriz2x2 {
         if(determinante()!=0){
           return m.multiplica((1/determinante()));
         }
-        return null;
+        throw new IllegalStateException();
     }
 
     /**

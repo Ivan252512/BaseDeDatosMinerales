@@ -11,7 +11,7 @@ public class BaseDeDatosEstudiantes extends BaseDeDatos {
      */
     @Override public Registro creaRegistro() {
         // Aquí va su código.
-        return (Registro)new Estudiante("",0,0,0);
+        return (Registro)new Estudiante(null,0,0.0,0);
     }
 
     /**
