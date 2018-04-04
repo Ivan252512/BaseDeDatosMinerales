@@ -22,7 +22,7 @@ public abstract class BaseDeDatos {
      */
     public BaseDeDatos() {
         // Aquí va su código.
-        registros=null;
+        registros=new Lista();
     }
 
     /**
@@ -50,7 +50,7 @@ public abstract class BaseDeDatos {
      */
     public void agregaRegistro(Registro registro) {
         // Aquí va su código.
-        registos.agregaFinal(registro);
+        registros.agregaFinal(registro);
     }
 
     /**
