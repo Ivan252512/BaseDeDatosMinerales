@@ -15,7 +15,7 @@ import org.junit.rules.Timeout;
 /**
  * Clase para pruebas unitarias de la enumeración {@link CampoEstudiante}.
  */
-public class TestCampoEstudiante {
+public class TestCampoMineral {
 
     /** Expiración para que ninguna prueba tarde más de 5 segundos. */
     @Rule public Timeout expiracion = Timeout.seconds(5);
@@ -24,13 +24,15 @@ public class TestCampoEstudiante {
      * Prueba unitaria para {@link CampoEstudiante#toString}.
      */
     @Test public void testToString() {
-        String s = CampoEstudiante.NOMBRE.toString();
+        String s = CampoMineral.NOMBRE.toString();
         Assert.assertTrue(s.equals("Nombre"));
-        s = CampoEstudiante.CUENTA.toString();
-        Assert.assertTrue(s.equals("# Cuenta"));
-        s = CampoEstudiante.PROMEDIO.toString();
-        Assert.assertTrue(s.equals("Promedio"));
-        s = CampoEstudiante.EDAD.toString();
-        Assert.assertTrue(s.equals("Edad"));
+        s = CampoMineral.DENSIDAD.toString();
+        Assert.assertTrue(s.equals("Densidad"));
+        s = CampoEstudiante.DUREZA.toString();
+        Assert.assertTrue(s.equals("Dureza"));
+        s = CampoEstudiante.PUNTODEFUSION.toString();
+        Assert.assertTrue(s.equals("Punto de fusión"));
+        s = CampoEstudiante.ESTRUCTURACRISTALINA.toString();
+        Assert.assertTrue(s.equals("Estructura cristalina"));
     }
 }

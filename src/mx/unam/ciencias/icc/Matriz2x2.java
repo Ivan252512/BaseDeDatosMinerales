@@ -98,7 +98,8 @@ public class Matriz2x2 {
      */
     public Matriz2x2 multiplica(Matriz2x2 m) {
         // Aquí va su código.
-        return new Matriz2x2(a * m.a + b * m.c , a*m.b+b*m.d, c*m.a+d*m.c,c*m.b+d*m.d);
+        return new Matriz2x2(a * m.a + b * m.c , a*m.b+b*m.d,
+                             c*m.a+d*m.c,c*m.b+d*m.d);
     }
 
     /**

@@ -5,44 +5,49 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 /**
- * Clase para representar estudiantes. Un estudiante tiene nombre, número de
- * cuenta, promedio y edad. La clase implementa {@link Registro}, por lo que
- * puede cargarse y guardarse utilizando objetos de las clases {@link
- * BufferedReader} y {@link BufferedWriter} como entrada y salida
- * respectivamente.
+ * Clase para representar minerales. Un mineral tiene nombre, dureza en la
+ * escala de Mohs, punto de fusión, densidad y estructura cristalina. La clase
+ * implementa {@link Registro}, por lo que puede cargarse y guardarse utilizando
+ * objetos de las clases {@link BufferedReader} y {@link BufferedWriter} como
+ * entrada y salida respectivamente.
  */
-public class Estudiante implements Registro {
+public class Mineral implements Registro {
 
-    /* Nombre del estudiante. */
+    /* Nombre del mineral. */
     private String nombre;
-    /* Número de cuenta. */
-    private int cuenta;
-    /* Pormedio del estudiante. */
-    private double promedio;
-    /* Edad del estudiante.*/
-    private int edad;
+    /* Dureza en la escala de Mohs (Valores del 1 al 10). */
+    private int dureza;
+    /* Densidad del mineral. */
+    private double densidad;
+    /* Punto de fusión del mineral*/
+    private double puntoDeFusion;
+    /* Estructura cristalina */
+    private String estructuraCristalina;
 
     /**
-     * Construye un estudiante con todas sus propiedades.
-     * @param nombre el nombre del estudiante.
-     * @param cuenta el número de cuenta del estudiante.
-     * @param promedio el promedio del estudiante.
-     * @param edad la edad del estudiante.
+     * Construye un mineral con todas sus propiedades.
+     * @param nombre el nombre del mineral.
+     * @param dureza la dureza del mineral.
+     * @param densidad la densidad del mineral.
+     * @param puntoDeFusion el punto de fución del mineral.
+     * @param estructuraCristalina la estructura cristalina del mineral.
      */
-    public Estudiante(String nombre,
-                      int    cuenta,
-                      double promedio,
-                      int    edad) {
+    public Mineral(String nombre,
+                   int    dureza,
+                   double densidad,
+                   double puntoDeFusion
+                   String estructuraCristalina) {
         // Aquí va su código.
         this.nombre=nombre;
-        this.cuenta=cuenta;
-        this.promedio=promedio;
+        this.dureza=dureza;
+        this.densidad=densidad;
+        this.puntoDeFusion=puntoDeFusion;
         this.edad=edad;
     }
 
     /**
-     * Regresa el nombre del estudiante.
-     * @return el nombre del estudiante.
+     * Regresa el nombre del mineral.
+     * @return el nombre del mineral.
      */
     public String getNombre() {
         // Aquí va su código.
@@ -50,8 +55,8 @@ public class Estudiante implements Registro {
     }
 
     /**
-     * Define el nombre del estudiante.
-     * @param nombre el nuevo nombre del estudiante.
+     * Define el nombre del mineral.
+     * @param nombre el nuevo nombre del mineral.
      */
     public void setNombre(String nombre) {
         // Aquí va su código.
@@ -59,57 +64,75 @@ public class Estudiante implements Registro {
     }
 
     /**
-     * Regresa el número de cuenta del estudiante.
-     * @return el número de cuenta del estudiante.
+     * Regresa la estructura cristalina del mineral.
+     * @return la estructura cristalina del mineral.
      */
-    public int getCuenta() {
+    public String getEstructuraCristalina() {
         // Aquí va su código.
-        return this.cuenta;
+        return this.estructuraCristalina;
     }
 
     /**
-     * Define el número cuenta del estudiante.
-     * @param cuenta el nuevo número de cuenta del estudiante.
+     * Define la estructura cristalina del mineral.
+     * @param estructuraCristalina la estructura cristalina del mineral.
      */
-    public void setCuenta(int cuenta) {
+    public void setEstructuraCristalina(String estructuraCristalina) {
         // Aquí va su código.
-        this.cuenta=cuenta;
+        this.estructuraCristalina=estructuraCristalina;
     }
 
     /**
-     * Regresa el promedio del estudiante.
-     * @return el promedio del estudiante.
+     * Regresa la dureza del mineral.
+     * @return la dureza del mineral.
      */
-    public double getPromedio() {
+    public int getDureza() {
         // Aquí va su código.
-        return this.promedio;
+        return this.dureza;
     }
 
     /**
-     * Define el promedio del estudiante.
-     * @param promedio el nuevo promedio del estudiante.
+     * Define la dureza del mineral.
+     * @param dureza la dureza del mineral.
      */
-    public void setPromedio(double promedio) {
+    public void setDureza(int dureza) {
         // Aquí va su código.
-        this.promedio=promedio;
+        this.dureza=dureza;
     }
 
     /**
-     * Regresa la edad del estudiante.
-     * @return la edad del estudiante.
+     * Regresa el punto de fusión del mineral.
+     * @return el punto de fusión del mineral.
      */
-    public int getEdad() {
+    public double getPuntoDeFusion() {
         // Aquí va su código.
-        return this.edad;
+        return this.puntoDeFusion;
+    }
+
+    /**
+     * Define el punto de fusión del mineral.
+     * @param puntoDeFusion el nuevo punto de fusión del mineral.
+     */
+    public void setPuntoDeFusion(double puntoDeFusion) {
+        // Aquí va su código.
+        this.puntoDeFusion=puntoDeFusion;
+    }
+
+    /**
+     * Regresa la densidad del mineral.
+     * @return la densidad del mineral.
+     */
+    public int getDensidad() {
+        // Aquí va su código.
+        return this.densidad;
     }
 
     /**
      * Define la edad del estudiante.
      * @param edad la nueva edad del estudiante.
      */
-    public void setEdad(int edad) {
+    public void setDensidad(double densidad) {
         // Aquí va su código.
-        this.edad=edad;
+        this.densidad=densidad;
     }
 
     /**
@@ -177,10 +200,21 @@ public class Estudiante implements Registro {
         // Aquí va su código.
         String linea=in.readLine();
         if(linea==null)
-            return false;
+          return false;
         linea=linea.trim();
         if(linea.equals(""))
-            return false;
-        return true;
+          return false;
+        String [] p = linea.split("\t");
+        if(p.length!=4)
+          throw new IOException("El archivo es inválido");
+        if(p[1].equals("a") || p[2].equals("a") || p[3].equals("a")){
+          throw new IOException("El archivo es inválido");
+        }
+        nombre=p[0];
+        cuenta=Integer.parseInt(p[1]);
+        promedio=Double.parseDouble(p[2]);
+        edad=Integer.parseInt(p[3]);
+        return (nombre==getNombre() && cuenta==getCuenta() &&
+                promedio==getPromedio() && edad==getEdad());
     }
 }

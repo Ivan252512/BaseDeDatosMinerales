@@ -17,18 +17,18 @@ import org.junit.Test;
 import org.junit.rules.Timeout;
 
 /**
- * Clase para pruebas unitarias de la clase {@link BaseDeDatosEstudiantes}.
+ * Clase para pruebas unitarias de la clase {@link BaseDeDatosMinerales}.
  */
-public class TestBaseDeDatosEstudiantes {
+public class TestBaseDeDatosMinerales {
 
     /** Expiración para que ninguna prueba tarde más de 5 segundos. */
     @Rule public Timeout expiracion = Timeout.seconds(5);
 
     /* Generador de números aleatorios. */
     private Random random;
-    /* Base de datos de estudiantes. */
-    private BaseDeDatosEstudiantes bdd;
-    /* Número total de estudiantes. */
+    /* Base de datos de minerales. */
+    private BaseDeDatosMinerales bdd;
+    /* Número total de minerales. */
     private int total;
 
     /* Enumeración espuria. */
@@ -39,22 +39,22 @@ public class TestBaseDeDatosEstudiantes {
 
     /**
      * Crea un generador de números aleatorios para cada prueba y una base de
-     * datos de estudiantes.
+     * datos de minerales.
      */
-    public TestBaseDeDatosEstudiantes() {
+    public TestBaseDeDatosMinerales() {
         random = new Random();
-        bdd = new BaseDeDatosEstudiantes();
+        bdd = new BaseDeDatosMinerales();
         total = 1 + random.nextInt(100);
     }
 
     /**
      * Prueba unitaria para {@link
-     * BaseDeDatosEstudiantes#BaseDeDatosEstudiantes}.
+     * BaseDeDatosMinerales#BaseDeDatosMinerales}.
      */
     @Test public void testConstructor() {
-        Lista estudiantes = bdd.getRegistros();
+        Lista minerales = bdd.getRegistros();
         Assert.assertFalse(estudiantes == null);
-        Assert.assertTrue(estudiantes.getLongitud() == 0);
+        Assert.assertTrue(minerales.getLongitud() == 0);
         Assert.assertTrue(bdd.getNumRegistros() == 0);
     }
 
@@ -64,8 +64,8 @@ public class TestBaseDeDatosEstudiantes {
     @Test public void testGetNumRegistros() {
         Assert.assertTrue(bdd.getNumRegistros() == 0);
         for (int i = 0; i < total; i++) {
-            Estudiante e = TestEstudiante.estudianteAleatorio();
-            bdd.agregaRegistro(e);
+            Mineral m = TestMineral.mineralAleatorio();
+            bdd.agregaRegistro(m);
             Assert.assertTrue(bdd.getNumRegistros() == i+1);
         }
         Assert.assertTrue(bdd.getNumRegistros() == total);
@@ -79,19 +79,19 @@ public class TestBaseDeDatosEstudiantes {
         Lista r = bdd.getRegistros();
         Assert.assertTrue(l.equals(r));
         Assert.assertFalse(l == r);
-        Estudiante[] estudiantes = new Estudiante[total];
+        Mineral[] minerales = new Mineral[total];
         for (int i = 0; i < total; i++) {
-            estudiantes[i] = TestEstudiante.estudianteAleatorio();
-            bdd.agregaRegistro(estudiantes[i]);
+            minerales[i] = TestMineral.mineralAleatorio();
+            bdd.agregaRegistro(minerales[i]);
         }
         l = bdd.getRegistros();
         int c = 0;
         Lista.Nodo nodo = l.getCabeza();
         while (nodo != null) {
-            Assert.assertTrue(estudiantes[c++].equals(nodo.get()));
+            Assert.assertTrue(minerales[c++].equals(nodo.get()));
             nodo = nodo.getSiguiente();
         }
-        l.elimina(estudiantes[0]);
+        l.elimina(minerales[0]);
         Assert.assertFalse(l.equals(bdd.getRegistros()));
         Assert.assertFalse(l.getLongitud() == bdd.getNumRegistros());
     }
@@ -101,12 +101,12 @@ public class TestBaseDeDatosEstudiantes {
      */
     @Test public void testAgregaRegistro() {
         for (int i = 0; i < total; i++) {
-            Estudiante e = TestEstudiante.estudianteAleatorio();
-            Assert.assertFalse(bdd.getRegistros().contiene(e));
-            bdd.agregaRegistro(e);
-            Assert.assertTrue(bdd.getRegistros().contiene(e));
+            Mineral m = TestMineral.mineralAleatorio();
+            Assert.assertFalse(bdd.getRegistros().contiene(m));
+            bdd.agregaRegistro(m);
+            Assert.assertTrue(bdd.getRegistros().contiene(m));
             Lista l = bdd.getRegistros();
-            Assert.assertTrue(l.get(l.getLongitud() - 1).equals(e));
+            Assert.assertTrue(l.get(l.getLongitud() - 1).equals(m));
         }
     }
 
@@ -116,15 +116,15 @@ public class TestBaseDeDatosEstudiantes {
     @Test public void testEliminaRegistro() {
         int ini = random.nextInt(1000000);
         for (int i = 0; i < total; i++) {
-            Estudiante e = TestEstudiante.estudianteAleatorio(ini + i);
-            bdd.agregaRegistro(e);
+            Mineral m = TestMineral.mineralAleatorio(ini + i);
+            bdd.agregaRegistro(m);
         }
         while (bdd.getNumRegistros() > 0) {
             int i = random.nextInt(bdd.getNumRegistros());
-            Estudiante e = (Estudiante)bdd.getRegistros().get(i);
-            Assert.assertTrue(bdd.getRegistros().contiene(e));
-            bdd.eliminaRegistro(e);
-            Assert.assertFalse(bdd.getRegistros().contiene(e));
+            Mineral m = (Mineral)bdd.getRegistros().get(i);
+            Assert.assertTrue(bdd.getRegistros().contiene(m));
+            bdd.eliminaRegistro(m);
+            Assert.assertFalse(bdd.getRegistros().contiene(m));
         }
     }
 
@@ -133,8 +133,8 @@ public class TestBaseDeDatosEstudiantes {
      */
     @Test public void testGuarda() {
         for (int i = 0; i < total; i++) {
-            Estudiante e = TestEstudiante.estudianteAleatorio();
-            bdd.agregaRegistro(e);
+            Mineral m = TestMineral.mineralAleatorio();
+            bdd.agregaRegistro(m);
         }
         String guardado = "";
         try {
@@ -152,12 +152,13 @@ public class TestBaseDeDatosEstudiantes {
         int c = 0;
         Lista.Nodo nodo = l.getCabeza();
         while (nodo != null) {
-            Estudiante e = (Estudiante)nodo.get();
-            String el = String.format("%s\t%d\t%2.2f\t%d",
-                                      e.getNombre(),
-                                      e.getCuenta(),
-                                      e.getPromedio(),
-                                      e.getEdad());
+            Mineral m = (Mineral)nodo.get();
+            String el = String.format("%s\t%d\t%2.2f\t%2.2f\t%s",
+                                      m.getNombre(),
+                                      m.getDureza(),
+                                      m.getDensidad(),
+                                      m.getPuntoDeFusion(),
+                                      m.getEstructuraCristalina();
             Assert.assertTrue(lineas[c++].equals(el));
             nodo = nodo.getSiguiente();
         }
@@ -169,15 +170,16 @@ public class TestBaseDeDatosEstudiantes {
     @Test public void testCarga() {
         int ini = random.nextInt(1000000);
         String entrada = "";
-        Estudiante[] estudiantes = new Estudiante[total];
+        Mineral[] minerales = new Mineral[total];
         for (int i = 0; i < total; i++) {
-            estudiantes[i] = TestEstudiante.estudianteAleatorio(ini + i);
-            entrada += String.format("%s\t%d\t%2.2f\t%d\n",
-                                     estudiantes[i].getNombre(),
-                                     estudiantes[i].getCuenta(),
-                                     estudiantes[i].getPromedio(),
-                                     estudiantes[i].getEdad());
-            bdd.agregaRegistro(estudiantes[i]);
+            minerales[i] = TestMineral.mineralAleatorio(ini + i);
+            entrada += String.format("%s\t%d\t%2.2f\t%2.2f\t%s\n",
+                                      m.getNombre(),
+                                      m.getDureza(),
+                                      m.getDensidad(),
+                                      m.getPuntoDeFusion(),
+                                      m.getEstructuraCristalina();
+            bdd.agregaRegistro(minerales[i]);
         }
         try {
             StringReader srInt = new StringReader(entrada);
@@ -192,36 +194,37 @@ public class TestBaseDeDatosEstudiantes {
         int c = 0;
         Lista.Nodo nodo = l.getCabeza();
         while (nodo != null) {
-            Assert.assertTrue(estudiantes[c++].equals(nodo.get()));
+            Assert.assertTrue(minerales[c++].equals(nodo.get()));
             nodo = nodo.getSiguiente();
         }
     }
 
     /**
-     * Prueba unitaria para {@link BaseDeDatosEstudiantes#creaRegistro}.
+     * Prueba unitaria para {@link BaseDeDatosMinerales#creaRegistro}.
      */
     @Test public void testCreaRegistro() {
-        Estudiante e = (Estudiante)bdd.creaRegistro();
-        Assert.assertTrue(e.getNombre() == null);
-        Assert.assertTrue(e.getCuenta() == 0);
-        Assert.assertTrue(e.getPromedio() == 0.0);
-        Assert.assertTrue(e.getEdad() == 0);
+        Mineral m = (Mineral)bdd.creaRegistro();
+        Assert.assertTrue(m.getNombre() == null);
+        Assert.assertTrue(m.getDureza() == 0);
+        Assert.assertTrue(m.getDensidad() == 0.0);
+        Assert.assertTrue(m.getPuntoDeFusion() == 0.0);
+        Assert.assertTrue(m.getEstructuraCristalina() == null);
     }
 
     /**
-     * Prueba unitaria para {@link BaseDeDatosEstudiantes#buscaRegistros}.
+     * Prueba unitaria para {@link BaseDeDatosMinerales#buscaRegistros}.
      */
     @Test public void testBuscaRegistros() {
-        Estudiante[] estudiantes = new Estudiante[total];
+        Mineral[] minerales = new Mineral[total];
         int ini = 1000000 + random.nextInt(999999);
         for (int i = 0; i < total; i++) {
-            Estudiante e =  new Estudiante(String.valueOf(ini+i),
-                                           ini+i, (i * 10.0) / total, i);
-            estudiantes[i] = e;
-            bdd.agregaRegistro(e);
+            Mineral m =  new Mineral(String.valueOf(ini+i),ini+i, (i * 10.0),
+                                     (i * 10.0),String.valueOf(ini+i));
+            minerales[i] = m;
+            bdd.agregaRegistro(m);
         }
 
-        Estudiante estudiante;
+        Mineral mineral;
         String busqueda;
         Lista l;
         Lista.Nodo nodo;
@@ -229,28 +232,28 @@ public class TestBaseDeDatosEstudiantes {
 
         for (int k = 0; k < total/10 + 3; k++) {
             i = random.nextInt(total);
-            estudiante = estudiantes[i];
+            mineral = minerales[i];
 
-            String nombre = estudiante.getNombre();
-            l = bdd.buscaRegistros(CampoEstudiante.NOMBRE, nombre);
+            String nombre = mineral.getNombre();
+            l = bdd.buscaRegistros(CampoMineral.NOMBRE, nombre);
             Assert.assertTrue(l.getLongitud() > 0);
             Assert.assertTrue(l.contiene(estudiante));
             nodo = l.getCabeza();
             while (nodo != null) {
-                Estudiante e = (Estudiante)nodo.get();
-                Assert.assertTrue(e.getNombre().indexOf(nombre) > -1);
+                Mineral m = (Mineral)nodo.get();
+                Assert.assertTrue(m.getNombre().indexOf(nombre) > -1);
                 nodo = nodo.getSiguiente();
             }
             n = nombre.length();
             busqueda = nombre.substring(random.nextInt(2),
                                         2 + random.nextInt(n-2));
-            l = bdd.buscaRegistros(CampoEstudiante.NOMBRE, busqueda);
+            l = bdd.buscaRegistros(CampoMineral.NOMBRE, busqueda);
             Assert.assertTrue(l.getLongitud() > 0);
-            Assert.assertTrue(l.contiene(estudiante));
+            Assert.assertTrue(l.contiene(mineral));
             nodo = l.getCabeza();
             while (nodo != null) {
-                Estudiante e = (Estudiante)nodo.get();
-                Assert.assertTrue(e.getNombre().indexOf(busqueda) > -1);
+                Mineral m = (Mineral)nodo.get();
+                Assert.assertTrue(m.getNombre().indexOf(busqueda) > -1);
                 nodo = nodo.getSiguiente();
             }
 

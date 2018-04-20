@@ -41,7 +41,7 @@ public abstract class BaseDeDatos {
      */
     public Lista getRegistros() {
         // Aquí va su código.
-        return this.registros;
+        return registros.copia();
     }
 
     /**
